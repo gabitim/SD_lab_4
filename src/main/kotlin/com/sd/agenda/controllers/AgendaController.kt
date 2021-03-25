@@ -18,8 +18,15 @@ class AgendaController {
     @Autowired
     private lateinit var agendaService: AgendaService
 
-    @RequestMapping(value = ["/person"], method =
-    [RequestMethod.POST])
+    //html
+    @RequestMapping(value = ["/addPerson"], method = [RequestMethod.GET])
+    fun personForm(model: Model): String {
+        val person = Person()
+        model.addAttribute("person", person)
+        return "addPerson"
+    }
+
+    @RequestMapping(value = ["/person"], method = [RequestMethod.POST])
     fun createPerson(@RequestBody person: Person): ResponseEntity<Unit> {
         agendaService.createPerson(person)
         return ResponseEntity(Unit, HttpStatus.CREATED)

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+    <body>
+        <h1>Welcome</h1>
+
+
+        <div class="container">
+            <hr style="height:4px;border-width:0;color:gray;background-color:gray">
+            <h2>Money Planner </h2>
+            <form action="/addCont" method="post">
+                                <div>
+                                    <input type="number" name="id" placeholder="ID" required>
+                                    <input type="text" name="first_name" placeholder="First Name" required>
+                                    <input type="text" name="last_name" placeholder="Last Name" required>
+                                    <input type="number" name="balance" step="1" placeholder="Amount" required>
+                                </div>
+                                <button type="submit">Add</button>
+            </form>
+
+            <br>
+
+            <form action="/updateCont" method="post">
+                            <div>
+                                <input type="number" name="id" placeholder="ID" required>
+                                <input type="text" name="first_name" placeholder="First Name" required>
+                                <input type="text" name="last_name" placeholder="Last Name" required>
+                                <input type="number" name="balance" step="1" placeholder="Amount" required>
+                            </div>
+                            <button type="submit">Update</button>
+            </form>
+
+            <br>
+
+            <form action="/deleteCont" method="post">
+                                <div>
+                                    <input type="number" name="id" placeholder="ID" required>
+                                </div>
+                                <button type="submit">Delete</button>
+            </form>
+
+            <br>
+
+            <form action="/getCont" method="get">
+                            <div>
+                                <input  value="id" type="number" name="id" placeholder="ID" required>
+                            </div>
+                            <button type="submit">Fetch</button>
+            </form>
+
+
+
+            <hr style="height:4px;border-width:0;color:gray;background-color:gray">
+            <h2>Expenses Planner </h2>
+            <form action="/addExpense" method="post">
+                                <div>
+                                    <input type="number" name="id" placeholder="ID" required>
+                                    <input type="text" name="label" placeholder="Label" required>
+                                    <input type="number" name="amount" step="1" placeholder="Amount" required>
+                                </div>
+                                <button type="submit">Add</button>
+            </form>
+
+            <br>
+
+            <form action="/updateExpense" method="post">
+                            <div>
+                                <input type="number" name="id" placeholder="ID" required>
+                                <input type="text" name="label" placeholder="Label" required>
+                                <input type="number" name="amount" step="1" placeholder="Amount" required>
+                            </div>
+                            <button type="submit">Update</button>
+            </form>
+
+            <br>
+
+            <form action="/deleteExpense" method="post">
+                                <div>
+                                    <input type="number" name="id" placeholder="ID" required>
+                                </div>
+                                <button type="submit">Delete</button>
+            </form>
+
+            <br>
+
+            <form action="/getExpense" method="get">
+                            <div>
+                                <input  value="id" type="number" name="id" placeholder="ID" required>
+                            </div>
+                            <button type="submit">Fetch</button>
+            </form>
+
+            <hr style="height:4px;border-width:0;color:gray;background-color:gray">
+
+            <h2>Money </h2>
+
+            <table >
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for account in accounts %}
+                <tr>
+                    <td>{{ account.id }}</td>
+                    <td>{{ account.first_name }}</td>
+                    <td>{{ account.last_name }}</td>
+                    <td>{{ account.amount }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <hr style="height:4px;border-width:0;color:gray;background-color:gray">
+            <h2>Expenses </h2>
+
+            <table >
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Label</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.id }}</td>
+                    <td>{{ expense.label }}</td>
+                    <td>{{ expense.amount }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </body>
+</html>

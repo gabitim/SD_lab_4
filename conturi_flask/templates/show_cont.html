@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a href="/"> Home </a>
+<hr>
+
+<div class="col-md-12">
+    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Balance</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ cont.id }}</td>
+            <td><strong>{{ cont.first_name }}</strong></td>
+            <td>{{ cont.last_name }}</td>
+            <td>{{ cont.balance }}</td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<hr>
+</body>
+</html>
