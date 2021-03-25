@@ -6,7 +6,7 @@ from Expenses import ExpenseService
 app = Flask(__name__)
 
 cont_service = ContService()
-expenses_service = ExpenseService()
+expense_service = ExpenseService()
 
 
 @app.route('/')
@@ -14,12 +14,12 @@ expenses_service = ExpenseService()
 def index():
     global cont_service
     accounts = cont_service.get_conturi()
-    expenses = expenses_service.get_expenses()
+    expenses = expense_service.get_expenses()
     return render_template('index.html', accounts=accounts, expenses=expenses)
 
 
 @app.route('/addCont', methods=['POST'])
-def add():
+def addCont():
     global cont_service
 
     if request.method == 'POST':
@@ -37,7 +37,7 @@ def add():
 
 
 @app.route('/updateCont', methods=['POST', 'PUT'])
-def update():
+def updateCont():
     global cont_service
 
     if request.method in ['PUT', 'POST']:
@@ -55,7 +55,7 @@ def update():
 
 
 @app.route('/deleteCont', methods=['POST', 'DELETE'])
-def delete():
+def deleteCont():
     global cont_service
 
     if request.method in ['DELETE', 'POST']:
@@ -70,7 +70,7 @@ def delete():
 
 
 @app.route('/getCont', methods=['GET', 'POST'])
-def get_cont():
+def getCont():
     global cont_service
 
     if request.method in ['GET', 'POST']:
@@ -78,6 +78,69 @@ def get_cont():
         if cont_service.id_exists(Id):
             cont = cont_service.get_cont(Id)
             return render_template('show_cont.html', cont=cont)
+
+    return render_template("error_cont.html")
+
+
+# expenses
+@app.route('/addExpense', methods=['POST'])
+def addExpense():
+    global expense_service
+
+    if request.method == 'POST':
+        form = request.form
+        Id = int(form.get('id'))
+        label = form.get('label')
+        amount = form.get('amount')
+
+        if not expense_service.id_exists(Id):
+            expense_service.add_expense(Id, label, amount)
+            return redirect('/')
+
+    return render_template("error_duplicat.html")
+
+
+@app.route('/updateExpense', methods=['POST', 'PUT'])
+def updateExpense():
+    global expense_service
+
+    if request.method in ['PUT', 'POST']:
+        form = request.form
+        Id = int(form.get('id'))
+        label = form.get('label')
+        amount = form.get('amount')
+
+        if cont_service.id_exists(Id):
+            expense_service.update_expense(Id, label, amount)
+            return redirect('/')
+
+    return render_template("error_cont.html")
+
+
+@app.route('/deleteExpense', methods=['POST', 'DELETE'])
+def deleteExpense():
+    global expense_service
+
+    if request.method in ['DELETE', 'POST']:
+        form = request.form
+        Id = int(form.get('id'))
+
+        if expense_service.id_exists(Id):
+            expense_service.delete_expense(Id)
+            return redirect('/')
+
+    return render_template("error_cont.html")
+
+
+@app.route('/getExpense', methods=['GET', 'POST'])
+def getExpense():
+    global expense_service
+
+    if request.method in ['GET', 'POST']:
+        Id = int(request.args.get('id'))
+        if expense_service.id_exists(Id):
+            cont = expense_service.get_expense(Id)
+            return render_template('show_expense.html', cont=cont)
 
     return render_template("error_cont.html")
 

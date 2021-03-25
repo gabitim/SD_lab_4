@@ -41,7 +41,7 @@ class ExpenseService:
         self.expenses[expense_index].label = label
         self.expenses[expense_index].amount = amount
 
-    def delete_cont(self, id):
+    def delete_expense(self, id):
         expense_index = 0
         for index, expense in enumerate(self.expenses):
             if expense.id == id:
