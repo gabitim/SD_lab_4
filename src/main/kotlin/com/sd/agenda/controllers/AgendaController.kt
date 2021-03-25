@@ -20,14 +20,48 @@ class AgendaController {
 
     //html
     @RequestMapping(value = ["/addPerson"], method = [RequestMethod.GET])
-    fun personForm(model: Model): String {
+    fun addPersonForm(model: Model): String {
         val person = Person()
         model.addAttribute("person", person)
         return "addPerson"
     }
 
+    @RequestMapping(value = ["/updatePerson"], method = [RequestMethod.GET])
+    fun updatePersonForm(model: Model): String {
+        val person = Person()
+        model.addAttribute("person", person)
+        return "updatePerson"
+    }
+
+    @RequestMapping(value = ["/processUpdatePerson"], method = [RequestMethod.POST])
+    fun processUpdatePersonForm(person: Person): ResponseEntity<Unit> {
+        agendaService.getPerson(person.id)?.let {
+            agendaService.updatePerson(it.id, person)
+            return ResponseEntity(Unit, HttpStatus.ACCEPTED)
+        } ?: return ResponseEntity(Unit, HttpStatus.NOT_FOUND)
+    }
+
+    @RequestMapping(value = ["/deletePerson"], method = [RequestMethod.GET])
+    fun deletePersonForm(model: Model): String {
+        val person = Person()
+        model.addAttribute("person", person)
+        return "deletePerson"
+    }
+
+    @RequestMapping(value = ["/processDeletePerson"], method = [RequestMethod.POST])
+    fun processDeletePersonForm(person: Person): ResponseEntity<Unit> {
+        if (agendaService.getPerson(person.id) != null) {
+            agendaService.deletePerson(person.id)
+            return ResponseEntity(Unit, HttpStatus.OK)
+        } else {
+            return ResponseEntity(Unit, HttpStatus.NOT_FOUND)
+        }
+    }
+
+
+    //old
     @RequestMapping(value = ["/person"], method = [RequestMethod.POST])
-    fun createPerson(@RequestBody person: Person): ResponseEntity<Unit> {
+    fun createPerson(person: Person): ResponseEntity<Unit> {
         agendaService.createPerson(person)
         return ResponseEntity(Unit, HttpStatus.CREATED)
     }
@@ -46,7 +80,7 @@ class AgendaController {
 
     @RequestMapping(value = ["/person/{id}"], method =
     [RequestMethod.PUT])
-    fun updatePerson(@PathVariable id: Int, @RequestBody person: Person): ResponseEntity<Unit> {
+    fun updatePerson(@PathVariable id: Int, person: Person): ResponseEntity<Unit> {
         agendaService.getPerson(id)?.let {
             agendaService.updatePerson(it.id, person)
             return ResponseEntity(Unit, HttpStatus.ACCEPTED)

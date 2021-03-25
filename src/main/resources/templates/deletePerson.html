@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<style>
+    .simple{
+        text-align: center;
+    }
+    </style>
+<head>
+    <title>Intro</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div class="simple">
+    <h1>Delete a Person (if you know the id :p)</h1>
+    <form action="#" th:action="@{/processDeletePerson}" th:object="${person}" method="post">
+        <p>Id: <input type="text" th:field="*{id}" /></p>
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+</div>
+
+</body>
+</html>
